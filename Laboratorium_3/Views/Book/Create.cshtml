@@ -1,0 +1,45 @@
+﻿@model Book
+
+<h1>Dodaj książkę</h1>
+<form asp-controller="Book" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Title">Tytuł</label>
+        <input class="form-control" asp-for="Title" />
+        <span class="text-info" asp-validation-for="Title"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author">Autor</label>
+        <input class="form-control" asp-for="Author" />
+        <span class="text-info" asp-validation-for="Author"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PageNumber">Liczba Stron</label>
+        <input class="form-control" asp-for="PageNumber" />
+        <span class="text-info" asp-validation-for="PageNumber"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ISBN">ISBN</label>
+        <input class="form-control" asp-for="ISBN" />
+        <span class="text-info" asp-validation-for="ISBN"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PublicationYear">Rok wydania</label>
+        <input class="form-control" asp-for="PublicationYear" />
+        <span class="text-info" asp-validation-for="PublicationYear"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Publisher">Wydawnictwo</label>
+        <input class="form-control" asp-for="Publisher" />
+        <span class="text-info" asp-validation-for="Publisher"></span>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Utwórz</button>
+    </div>
+    <div>
+        <label asp-for="Priority">Kategoria</label>
+        <div>
+            <span asp-validation-for="Priority" class="text-danger"></span>
+        </div>
+        <select class="form-control" asp-for="Priority" asp-items="@Html.GetEnumSelectList<Category>()"></select>
+    </div>
+</form>

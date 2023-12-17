@@ -1,0 +1,12 @@
+﻿@model Birth
+
+<h2>Wynik</h2>
+
+@if (Model.IsValid())
+{
+    <p>Cześć @Model.Imie, masz @Model.birth() lat(a).</p>
+}
+else
+{
+    <p>Coś poszło nie tak. Sprawdź poprawność danych.</p>
+}
