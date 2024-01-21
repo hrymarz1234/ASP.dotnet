@@ -35,11 +35,6 @@
     <div class="mb-3">
         <button class="btn btn-primary" type="submit">Utwórz</button>
     </div>
-    <div>
-        <label asp-for="Priority">Kategoria</label>
-        <div>
-            <span asp-validation-for="Priority" class="text-danger"></span>
-        </div>
-        <select class="form-control" asp-for="Priority" asp-items="@Html.GetEnumSelectList<Category>()"></select>
-    </div>
+    <p>Id po zapisie: <strong>@TempData["ProductId"]</strong></p>
+    
 </form>

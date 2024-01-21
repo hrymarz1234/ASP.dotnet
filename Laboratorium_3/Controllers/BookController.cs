@@ -2,6 +2,8 @@
 using Laboratorium_3.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Laboratorium_3.Services;
+using Laboratorium_3.Services.Interfaces;
 
 
 namespace Laboratorium_3.Controllers
@@ -9,19 +11,18 @@ namespace Laboratorium_3.Controllers
     public class BookController : Controller
     {
         private readonly IBookService _bookService;
+        
+        private readonly IDataTimeProvider _dateTimeProvider;
 
-        private readonly IDateTimeProvider _dateTimeProvider;
-
-        public BookController(IDateTimeProvider timeProvider, IBookService bookService)
+        public BookController(IBookService bookService, IDataTimeProvider dateTimeProvider)
         {
-            _dateTimeProvider = timeProvider;
             _bookService = bookService;
-            
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public IActionResult Index()
         {
-            return View(_bookService.FindAll());
+            return View();
         }
         
         [HttpGet]
@@ -33,17 +34,19 @@ namespace Laboratorium_3.Controllers
         [HttpPost]
         public IActionResult Create(Book model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _bookService.Add(model);
-                return RedirectToAction("Index");
+                 return View(model);
             }
-            return View();
+            var id = _bookService.Save(model);
+            TempData["ProductId"] = id;
+            return RedirectToAction("Create");
+
         }
         [HttpGet]
         public IActionResult Update(int id)
         {
-            return View(_bookService.FindById(id));
+            return View();
         }
 
 
@@ -53,7 +56,7 @@ namespace Laboratorium_3.Controllers
             if (ModelState.IsValid)
             {
 
-                _bookService.Update(model);
+                
                 return RedirectToAction("Index");
             }
             return View();
@@ -62,15 +65,17 @@ namespace Laboratorium_3.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return View(_bookService.FindById(id));
+            return View();
         }
 
 
         [HttpPost]
         public IActionResult Delete(Book model)
         {
-            _bookService.DeleteById(model.Id);
+           
             return RedirectToAction("Index");
         }
     }
+
+ 
 }

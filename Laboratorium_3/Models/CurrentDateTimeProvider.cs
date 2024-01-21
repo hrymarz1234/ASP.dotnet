@@ -1,13 +1,12 @@
-﻿namespace Laboratorium_3.Models
+﻿using Laboratorium_3.Services.Interfaces;
+
+namespace Laboratorium_3.Models
 {
-    public class CurrentDateTimeProvider : IDateTimeProvider
+    public class CurrentDateTimeProvider : IDataTimeProvider
     {
-        public DateTime GetDateTime()
+        public DateTime Now()
         {
             return DateTime.Now;
         }
-
-
-
     }
 }

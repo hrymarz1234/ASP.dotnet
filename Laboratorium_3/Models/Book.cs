@@ -25,6 +25,7 @@ namespace Laboratorium_3.Models
         public string Publisher { get; set; }
 
         public string PageNumber { get; set; }
+        
 
     }
 }
